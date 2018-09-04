@@ -7,7 +7,7 @@ Templates and Functions for Standardized Research Projects
 
 Clone this repo
 
-````bash
+```bash
 https://github.com/Jadamso/ProjectTemplate.git
 
 ```
