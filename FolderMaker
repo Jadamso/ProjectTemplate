@@ -152,8 +152,9 @@ echo -e  "\label{sect:Abstract}" >> "$PAPER/Writing/Abstract.tex"
 echo -e  " " >> "$PAPER/Writing/Bibliography.bib"
 
 ## Additions to New Files
-echo -e "## Notes" | tee -a "$PAPER/Notes.txt"
-
+echo -e "## Notes" | tee -a "$PAPER/Writing/Notes.txt"
+echo -e "# New Paper
+by " | tee -a "$PAPER/README.md"
 echo -e "
 \input{.Tables/Table1.tex}
 \begin{figure}[H]
