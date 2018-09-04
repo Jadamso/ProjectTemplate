@@ -4,11 +4,9 @@ Templates and Functions for Standardized Research Projects
 
 ## Initial Instructions
 
-
-Clone this repo
-
+To clone this repo to the current directory
 ```bash
-https://github.com/Jadamso/ProjectTemplate.git
+git clone https://github.com/Jadamso/ProjectTemplate.git
 ```
 
 make `FolderMaker` program to be in path
@@ -17,6 +15,9 @@ make `FolderMaker` program to be in path
 cp ./FolderMaker $HOME/Programs
 # (Alternative symbolic link) ln -sf ./FolderMaker $HOME/Programs/FolderMaker
 ```
+## 
+
+## Templates
 
 make Latex templates  to be in copyable Directory
 ```bash
@@ -27,7 +28,6 @@ make GitTemplate to be in copyable Directory
 ```bash
 cp -r ./GitTemplate $HOME/Desktop/Common
 ```
-
 
 code templates for submitting batch jobs on a cluster,
 ```bash
@@ -45,7 +45,8 @@ cp RSYNCexcludes.txt $HOME/Desktop/Common
 To Create a standardized research project directory
 
 ```bash
-FolderMaker NewProject
+cp -r $HOME/Desktop/Common/PaperTemplate/* .
+#FolderMaker -p NewProject
 ```
 
 To Create a standardized Rpackage in the current directory
