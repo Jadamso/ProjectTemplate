@@ -1,0 +1,194 @@
+%\input{/home/Jadamso/Desktop/Common/Latex/Setup.tex}
+%\newcommand{\setupfolder}{/home/Jadamso/Desktop/Common/Latex}
+%\RequirePackage{./ASetup}
+
+
+\documentclass[usenames,dvipsnames]{beamer}
+\RequirePackage{beamerthemesplit}
+\RequirePackage{pgfpages}
+
+
+\RequirePackage{ASetupHyper}
+\hypersetup{ citecolor=gray }
+
+
+\RequirePackage{ASetupDefs}
+\RequirePackage{ASetupCode}
+
+
+
+%  ===========================================================================
+%  Document Setup
+%  ===========================================================================
+% Misc.
+\linespread{1.5}
+
+\setbeameroption{hide notes}
+%\setbeameroption{show notes}
+%\setbeameroption{show notes on second screen}
+
+%  ===========================================================================
+%  Beamer Presentation
+%  ===========================================================================
+
+%\RequirePackage{/home/Jadamso/Desktop/Paper1/Presentation/beamerthemeI6dv} %beamerthemeI6dv.sty
+%https://www.hartwork.org/beamer-theme-matrix/
+%http://www.cpt.univ-mrs.fr/~masson/latex/Beamer-appearance-cheat-sheet.pdf
+\mode<presentation>{
+\usetheme[]{Warsaw}
+\setbeamercovered{transparent}
+
+\usecolortheme{rose}
+
+\setbeamertemplate{footline}[page number]
+\setbeamertemplate{navigation symbols}{}
+
+%\useoutertheme{default}
+\useoutertheme[
+    subsection=false,
+    shadow=false]{miniframes}
+    %default
+    %infolines
+    %miniframes
+    %smoothbars
+    %sidebar
+    %split
+    %shadow
+    %tree
+    %smoothtree 
+
+%\useinnertheme{default}
+    %default
+    %circles
+    %rectangles
+    %rounded
+    %inmargin
+
+\setbeamertemplate{blocks}[rounded][shadow=false]
+
+}
+
+\setbeamerfont{frametitle}{size=\normalsize}
+\setbeamerfont{framesubtitle}{size=\normalsize}
+%\setbeamertemplate{frametitle}[default][colsep=-4bp,rounded=false,shadow=false]
+
+\setbeamertemplate{theorems}[numbered]
+
+%  ===========================================================================
+%  Shading Setup
+%  ===========================================================================
+\AtBeginDocument{
+    \pgfdeclareverticalshading{beamer@topshade}{\paperwidth}{%
+        color(0pt)=(white);
+        color(4pt)=(white!50!white)    
+    }
+}
+\setbeamertemplate{title page}[default][colsep=-4bp,rounded=true]
+
+%  ===========================================================================
+%  Headline Setup
+%  ===========================================================================
+\makeatletter
+\setbeamertemplate{headline}{
+\leavevmode
+\hbox{\begin{beamercolorbox}[
+    wd=1\paperwidth,
+    ht=2.4ex,
+    dp=1.6ex,
+    right,
+    shadow=false,
+    rounded=false]{author in head/foot}%
+    \usebeamerfont{section in head/foot}
+    \insertsection\hspace*{2.5ex}
+\end{beamercolorbox}}
+}
+\makeatother
+
+
+%  ===========================================================================
+%  Custom Commands
+%  ===========================================================================
+\newcommand{\bskip}[1][1]{\vspace{#1\baselineskip}}
+
+\newcommand{\citeFG}[1]{
+    {\footnotesize\textcolor{gray}{#1}}
+}
+
+
+\RequirePackage[absolute,overlay]{textpos}
+\newcommand{\FrameText}[3]{%
+  \begin{textblock*}{#1\paperwidth}(0pt,#2\textheight) %{.925 \paperwidth}(0pt,1\textheight)
+    \flushright #3
+  \end{textblock*}
+}
+
+\newcommand\FrameT[2][.1]{
+  \FrameT{#1}{1}{#2}
+}
+
+\newcommand\FrameButton[3][.1]{
+  \FrameText{#1}{1}{ \hyperlink{#2}{\beamergotobutton{#3}} }
+}
+
+
+
+
+\newcommand{\titleframe}{
+    \begin{frame}
+    \titlepage
+    \sig
+    \end{frame}
+}
+
+
+
+%  ===========================================================================
+%  Hyper Setup
+%  ===========================================================================
+% http://mirror.switch.ch/ftp/mirror/tex/macros/latex/contrib/hyperref/doc/manual.html#TBL-7-40-1
+
+\PassOptionsToPackage{hyphens}{url}
+%\RequirePackage[breaklinks]{hyperref}
+%\RequirePackage[hyphenbreaks]{breakurl}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=gray, %% black for Papers
+    citecolor=gray,
+    urlcolor=blue,
+    pdfborder={0 0 0},
+    pdfauthor={Jordan Adamson},
+    pdfcreator={Jordan Adamson}
+}
+
+%  ===========================================================================
+%  Signature Setup
+%  ===========================================================================
+
+
+\def\sig{
+    \small{
+        %\href{mailto:Jadamso@g.clemson.edu}{ \color{blue}{Jadamso@clemson.edu}}
+        %\href{mailto:Jadamso@g.clemson.edu}{Jadamso@clemson.edu}
+        \url{Jadamso@clemson.edu}
+    }
+}
+
+\def\web{
+    %\href{https://sites.google.com/a/g.clemson.edu/ja-resources/}{ \color{blue}{https://sites.google.com/a/g.clemson.edu/ja-resources/}}
+    \url{https://sites.google.com/a/g.clemson.edu/ja-resources/}
+}
+
+
+\def\endsig{
+    \vfill
+    \begin{flushright}
+    \scriptsize{ \vspace{2mm}
+    \sig \\
+    \web
+    }
+    \end{flushright}
+}
+
+
+\endinput

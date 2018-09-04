@@ -1,0 +1,66 @@
+% this is my first package for my own purpose
+%
+% sty2dtx ASetup.sty > ASetup.dtx
+% ctanify ASetup.dtx ASetup.sty
+
+%% This program can be redistributed and/or modified under the terms
+%% of the LaTeX Project Public License Distributed from CTAN archives
+%% in directory macros/latex/base/lppl.txt.
+% 
+\NeedsTeXFormat{LaTeX2e}
+    %[1994/06/01]
+\ProvidesPackage{ASetupHyper}
+    %[2017/11/11 v0.01 LaTeX package for my own purpose]
+
+
+
+%  =====================================================================
+%  Hyper Setup
+%  =====================================================================
+% http://mirror.switch.ch/ftp/mirror/tex/macros/latex/contrib/hyperref/doc/manual.html#TBL-7-40-1
+
+
+%% Breaking Hyperlinks
+\PassOptionsToPackage{hyphens}{url}
+%\usepackage[breaklinks]{hyperref}
+%\usepackage[hyphenbreaks]{breakurl}
+\expandafter\def\expandafter\UrlBreaks\expandafter{\UrlBreaks%  save the current one
+  \do\a\do\b\do\c\do\d\do\e\do\f\do\g\do\h\do\i\do\j%
+  \do\k\do\l\do\m\do\n\do\o\do\p\do\q\do\r\do\s\do\t%
+  \do\u\do\v\do\w\do\x\do\y\do\z\do\A\do\B\do\C\do\D%
+  \do\E\do\F\do\G\do\H\do\I\do\J\do\K\do\L\do\M\do\N%
+  \do\O\do\P\do\Q\do\R\do\S\do\T\do\U\do\V\do\W\do\X%
+  \do\Y\do\Z}
+
+
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black, %% black for Papers
+    citecolor=black,
+    urlcolor=blue,
+    pdfborder={0 0 0},
+    pdfauthor={Jordan Adamson},
+    pdfcreator={Jordan Adamson}
+}
+
+\hypersetup{
+    pdfview=Fit,
+    pdfstartview=Fit,
+    pdfmenubar=false,
+    pdfpagelayout=SinglePage}
+% fits the presentation to the window when first displayed
+
+
+%anchorcolor [black]
+%filecolor [cyan]
+%menucolor [red]
+%runcolor [cyan - same as file color]
+%urlcolor [magenta]
+%allcolors
+
+%\newcommand{\burl}[1]{  \textcolor{blue}{\url{#1}} }
+
+%\urlstyle{same} %\urlstyle{tt}
+
+\endinput

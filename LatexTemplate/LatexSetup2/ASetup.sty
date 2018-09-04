@@ -1,0 +1,108 @@
+%% This program can be redistributed and/or modified under the terms
+%% of the LaTeX Project Public License Distributed from CTAN archives
+%% in directory macros/latex/base/lppl.txt.
+% 
+\NeedsTeXFormat{LaTeX2e}
+    %[1994/06/01]
+\ProvidesPackage{ASetup}
+    %[2017/11/11 v0.01 LaTeX package for my own purpose]
+
+
+%% This is Same as Setup.tex
+%  ================================================================
+%  Style
+%  ================================================================
+\documentclass[12 pt]{article}
+
+\RequirePackage[
+  margin=.8in,
+  top=0.8in,
+  footskip=12pt,
+  includefoot
+  ]{geometry}
+ 
+%  ================================================================
+% Load Custom Packages
+%  ================================================================
+
+%\RequirePackage[kvoptions]
+%\ProvidesPackage{ASetup}
+%\DeclareStringOption[/home/Jadamso/Desktop/Common/Latex/LatexSetup]{setupfolder}[/home/Jadamso/Desktop/Common/Latex/LatexSetup]
+%\ProcessOptions\relax
+
+\RequirePackage{ASetupDefs}
+\RequirePackage{hyperref}
+\RequirePackage{ASetupHyper}
+\RequirePackage{ASetupCode}
+
+%\newcommand{\setupfolder}{/home/Jadamso/Desktop/Common/Latex}
+%\RequirePackage{arydshln}
+
+%  ================================================================
+%  Document Style
+%  ================================================================
+
+\pdfminorversion=7
+
+\RequirePackage{fancyhdr}
+\RequirePackage{fancyvrb}
+\pagestyle{fancy}
+\pagenumbering{arabic}
+
+\setlength\parskip{0pt}
+\setlength\parindent{0pt}
+
+
+%  =================================================================
+%  Headers & Footers Style
+%  =================================================================
+ 
+\RequirePackage{setspace}
+\RequirePackage{footmisc}
+% \fancypagestyle{plain}{INSERT YOUR DEFINITIONS}
+
+% Foot Notes
+\renewcommand\footnotelayout{\fontsize{10}{10}\selectfont}
+\setlength{\footnotesep}{\baselineskip}
+\VerbatimFootnotes
+
+% Headers
+\setlength{\headheight}{15.2pt}
+%\fancyhead{}
+%\rhead{\today} \Date 
+%\lhead{\bfserie} \Author
+\renewcommand{\headrulewidth}{0pt}
+\rhead{}
+\lhead{}
+
+% Footers
+\cfoot{}
+\rfoot{\thepage}
+%\lfoot{}
+%\fancyfoot[R]{\thepage}
+%\fancyfoot[L]{\nouppercase{\rightmark}}
+%\fancypagestyle{plain}{%
+%    \renewcommand{\headrulewidth}{0pt}%
+%    \fancyhf{}%
+%    \fancyfoot[R]{\thepage}%
+%}
+
+
+%  ================================================================
+%  Row Lines and Column Dividers
+%  ================================================================
+ 
+\newcommand{\cvt}[1]{
+\vspace{.6\baselineskip}  \hspace*{-8mm}
+\textbf{ \large #1}  \vspace{-.4\baselineskip} \\ \rule{\textwidth}{1pt}
+}
+
+\newcommand{\cvdcolumn}[2][.5]{%
+    \begin{minipage}[t]{#1\textwidth} #2 \end{minipage}%
+}
+
+
+
+\endinput
+%%
+%% End of file `mypackage.sty'.

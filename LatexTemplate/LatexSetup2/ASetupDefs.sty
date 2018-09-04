@@ -1,0 +1,373 @@
+% this is my first package for my own purpose
+%
+% sty2dtx ASetupDefs.sty > ASetupDefs.dtx
+% ctanify ASetupDefs.dtx ASetupDefs.sty
+
+%% This program can be redistributed and/or modified under the terms
+%% of the LaTeX Project Public License Distributed from CTAN archives
+%% in directory macros/latex/base/lppl.txt.
+% 
+\NeedsTeXFormat{LaTeX2e}
+    %[1994/06/01]
+\ProvidesPackage{ASetupDefs}
+
+
+%  ================================================================
+%  Setup Defs
+%  ================================================================
+\author{Jordan Adamson}
+\def\email{\href{mailto:Jadamso@g.clemson.edu}{Jadamso@g.clemson.edu}}
+
+%  ================================================================
+%  Math Writing
+%  ================================================================
+\RequirePackage{amsmath,amssymb}
+\RequirePackage{econometrics}
+%\RequirePackage{statex2}
+
+
+\RequirePackage{booktabs}
+\RequirePackage{enumitem}
+\RequirePackage{float}
+\RequirePackage{setspace}
+
+
+%  ================================================================
+%  Images
+%  ================================================================
+
+\RequirePackage{graphicx}
+\RequirePackage{picture}
+\RequirePackage{rotating}
+\RequirePackage{subcaption}
+\RequirePackage{wrapfig}
+\RequirePackage{arydshln}
+
+
+%  ================================================================
+%  Fonts
+%  ================================================================
+
+\RequirePackage[utf8]{inputenc}
+
+%% Times New Roman
+%\RequirePackage{times}
+\RequirePackage[T1]{fontenc}
+\RequirePackage{mathptmx}
+
+
+
+\RequirePackage{verbatim}
+
+\DeclareUnicodeCharacter{200E}{ }
+\DeclareUnicodeCharacter{2009}{ }
+%U+2009
+
+\PassOptionsToPackage{usenames,dvipsnames,svgnames,x11names,table}{xcolor}
+
+%  ================================================================
+%  Packages Unused
+%  ================================================================
+%\RequirePackage{subfig}
+%\RequirePackage[capposition=top]{floatrow}
+%\RequirePackage{mathrsfs}
+%\RequirePackage{mathtools}
+%\RequirePackage[flushleft]{threeparttable}
+%\RequirePackage{lipsum,booktabs}
+%\RequirePackage{synctex}
+%\RequirePackage[short]{datetime}
+%\RequirePackage{sgame}
+%\RequirePackage{pgfplots}
+%\RequirePackage{pgfplotstable}
+%\RequirePackage[round, authoryear]{natbib}
+%\RequirePackage[english]{babel}
+
+
+%  ================================================================
+%  Compression
+%  ================================================================
+\synctex=0
+\pdfcompresslevel=9 % from 0(uncompressed) to 9(compressed)
+\pdfobjcompresslevel=3
+\pdfdecimaldigits=2
+
+
+
+%  ================================================================
+%  Tikz
+%  ================================================================
+\RequirePackage{tikz}
+\usetikzlibrary{arrows}
+\usetikzlibrary{shapes}
+\usetikzlibrary{positioning}
+
+\usetikzlibrary{calc}
+\usetikzlibrary{fit}
+\makeatletter
+\tikzset{
+  fitting node/.style={
+    inner sep=0pt,
+    fill=none,
+    draw=none,
+    reset transform,
+    fit={(\pgf@pathminx,\pgf@pathminy) (\pgf@pathmaxx,\pgf@pathmaxy)}
+  },
+  reset transform/.code={\pgftransformreset}
+}
+\makeatother
+
+
+%\usetikzlibrary{decorations,patterns,trees}
+
+
+%\tikzset{every picture/.style={font=\footnotesize}}
+%\pgfplotsset{compat=1.8}
+%\usepgfmodule{plot}
+
+
+%  ================================================================
+%  Bibliography
+%  ================================================================
+%% http://faculty.ses.wsu.edu/Cassey/Webpage/Bib_files/Bib_files.htm
+%% http://tex.stackexchange.com/questions/25701/bibtex-vs-biber-and-biblatex-vs-natbib
+%% http://mirror.jmu.edu/pub/CTAN/macros/latex/contrib/biblatex/doc/biblatex.pdf
+
+%http://texcatalogue.ctan.org/bytopic.html#classes
+
+%https://www.ctan.org/pkg/camel
+
+\RequirePackage[
+    backend=biber,
+    firstinits=false,
+    uniquename=false,
+    %uniquelist=fal‌​se,
+    hyperref=true,
+    style=authoryear,
+    citestyle=authoryear,
+    url=false,
+    isbn=false,
+    eprint=false,
+    doi=false,
+    ] {biblatex}%%{biblatex-chicago}
+
+
+%\AtEveryBibitem{%
+%    urldate=false
+%}
+
+\DeclareSourcemap{
+  \maps[datatype=bibtex, overwrite]{
+    \map{
+      \step[fieldset=language, null]
+      \step[fieldset=note, null]
+      \step[fieldset=series, null]
+      \step[fieldset=urldate, null]
+      \step[fieldset=urlyear, null]
+      \step[fieldset=urlmonth, null]
+      \step[fieldset=location, null]
+    }
+  }
+}
+
+
+%\bibliographystyle{plain, abbrvnat}
+\setlength\bibitemsep{0pt}
+
+
+%% Remove 'pp.' from page numbers
+%% http://tex.stackexchange.com/questions/277272/biblatex-how-to-remove-the-period-after-p-pp-in-bibliography-only
+\DefineBibliographyStrings{english}{%
+  page             = {\ifbibliography{}{\adddot}},
+  pages            = {\ifbibliography{}{\adddot}},
+}
+
+%% Add origyear field from .bib into bibliography
+\renewbibmacro*{date}{%
+  \iffieldundef{origyear}{%
+  }{%
+    \setunit*{\addspace}%
+    \printtext[brackets]{\printorigdate}%
+  }%
+}
+
+% http://tex.stackexchange.com/questions/238204/biblatex-how-to-change-format-of-journal-volume-and-page-numbers-in-bibliogra
+%\DeclareFieldFormat[article]{title}{#1}
+%\DeclareFieldFormat[article]{journaltitle}{#1}
+%\DeclareFieldFormat[book]{title}{#1}
+%\renewbibmacro{in:}{%
+% \ifentrytype{article}{}{\printtext{\bibstring{in}\intitlepunct}}}
+
+
+
+\DeclareCiteCommand{\citejournal}
+    {\usebibmacro{prenote}}
+    {\usebibmacro{citeindex}%
+    \usebibmacro{journal}}
+    {\multicitedelim}
+    {\usebibmacro{postnote}}
+%\setcitestyle{open={(},close={)}}
+
+
+\makeatletter
+\renewcommand\@biblabel[1]{}
+\makeatother
+
+
+%\makeatletter
+%\newcommand{\jref}{\@dblarg\@jref}
+%\def\@jref[#1]#2{ \href{#2}{ \nolinkurl{ #1} }}
+%\makeatother
+
+%% Citations
+%\renewcommand{\cc}[1]{\citeauthor{#1} (\citeyear{#1})}
+\newcommand{\citeat}[2][ ]{ \citeauthor{#2} (\citeyear[#1]{#2}) }
+ 
+ 
+
+%  ================================================================
+%  Flags
+%  ================================================================
+\ifdefined\myFTEflag 
+    \RequirePackage[nolists, heads]{endfloat}
+    \DeclareDelayedFloatFlavor{sidewaysfigure}{figure}
+    \DeclareDelayedFloatFlavor{sidewaystable}{table}
+    \DeclareDelayedFloatFlavor{wrapfigure}{figure}
+\fi
+
+\ifdefined\myAflag \printanswers \fi
+
+
+%  ================================================================
+%% Custom Commands
+%  ================================================================
+\def\R{\textbf{\textsf{R~}}}
+\def\cplusplus{ \textbf{\textsf{ {\rm C\raise.5ex\hbox{\small ++}}} }}
+
+%% Making Quotes
+\newcommand{\chapquote}[3]{
+    \begin{quotation} \textit{ #1} \end{quotation} \vspace{-.5\baselineskip}
+    \begin{flushright} - #2  \textit{#3} \end{flushright}
+}
+
+%% Mathematical Shortcuts
+\def\Sum{\sum\limits}
+\def\dist{\sim}
+
+%% New Header Section
+\newcommand{\FrontNote}[1]{
+  \pagenumbering{Roman}
+  #1
+  \newpage
+  \pagenumbering{arabic}
+}
+%https://www.sharelatex.com/learn/Page_numbering
+
+%% Tables
+%\def\se{\footnotesize{(s.e)}}
+% ... \end{tabular}
+%\parbox{8cm}{\scriptsize {\bf{Notes:}} Notes for Table!}
+
+% Version Note
+\newcommand{\versionnote}[2]{ \vfill \hfill {\scriptsize #1 version #2}}
+
+%% Dan Woods Commands
+%\def\Integer{\mathsf{C\hspace{-0.4em}C}}
+%\def\Natural{\mathrm{I\!N}}
+%\def\Real{\mathrm{I\!R}}
+%\def\degree{^{\circ}}
+%\def\argmax{\operatornamewithlimits{arg\,max}}
+%\def\argmin{\operatornamewithlimits{arg\,min}}
+
+%\makeatletter
+%\renewcommand*\env@matrix[1][c]{\hskip -\arraycolsep
+%  \let\@ifnextchar\new@ifnextchar
+%  \array{*\c@MaxMatrixCols #1}}
+%\makeatother
+
+%%%%%%%%%%%%%%% Draft Markings
+%\RequirePackage[firstpage]{draftwatermark}
+%\SetWatermarkText{INCOMPLETE}
+%\SetWatermarkScale{1}
+
+
+
+
+
+%  ================================================================
+%  Itemize Setup
+%  ================================================================
+%% Itemize
+%http://tex.stackexchange.com/questions/11168/change-bullet-style-formatting-in-beamer
+%\setbeamertemplate{itemize items}[default]
+%\setbeamertemplate{enumerate items}[default]
+
+%\setbeamertemplate{itemize items}[default]
+%\setbeamertemplate{enumerate items}[default]
+
+
+%\setbeamertemplate{itemize item}{\scriptsize\raise1.25pt\hbox{\donotcoloroutermaths$\blacktriangleright$}}
+%\setbeamertemplate{itemize subitem}{\tiny\raise1.5pt\hbox{\donotcoloroutermaths$\blacktriangleright$}}
+%\setbeamertemplate{itemize subsubitem}{\tiny\raise1.5pt\hbox{\donotcoloroutermaths$\blacktriangleright$}}
+
+%\setbeamertemplate{enumerate item}{\insertenumlabel.}
+%\setbeamertemplate{enumerate subitem}{\insertenumlabel.\insertsubenumlabel}
+%\setbeamertemplate{enumerate subsubitem}{\insertenumlabel.\insertsubenumlabel.\insertsubsubenumlabel}
+%\setbeamertemplate{enumerate mini template}{\insertenumlabel}
+
+
+
+%\setbeamertemplate{itemize item}{\textbullet}
+%\setbeamertemplate{itemize subitem}{$\QED$}
+%\setbeamertemplate{itemize subsubitem}{$\smblkcircle$}
+
+
+\newcommand{\items}[1]{ %
+    \begin{itemize}[
+        leftmargin=*,
+        label={\textbullet}]
+    \setlength\itemsep{0em}
+    \setlength\itemindent{1em}
+    #1
+    \end{itemize}
+}
+
+\newcommand{\subitems}[1]{
+    \begin{itemize}[
+        leftmargin=*,
+        label={$-$}]
+    \setlength\itemsep{0em}
+    \setlength\itemindent{1em}
+    #1
+    \end{itemize}
+}
+
+\newcommand{\itemi}[1]{\items{ \item #1 } }
+\newcommand{\subitemi}[1]{\subitems{ \item #1 } }
+
+
+%\setbeamertemplate{itemize item}{\textbullet}
+
+%\let\OldItem\item
+%\renewcommand{\item}{\OldItem[\textbullet]}
+
+%\setbeamertemplate{itemize labelitemi}[\textbullet]
+
+%\let\OldItem\labelitemi
+%\renewcommand{\labelitemi}{\OldItem[\textbullet]}
+
+%\renewcommand{\labelitemi}{$\bullet$}
+%\renewcommand{\labelitemii}{$\cdot$}
+%\renewcommand{\labelitemiii}{$\diamond$}
+%\renewcommand{\labelitemiv}{$\ast$}
+
+
+
+
+
+%  ================================================================
+%  Tables
+%  ================================================================
+%\RequirePackage{array}
+%\newcolumntype{L}{@{\extracolsep{1cm}}l@{\extracolsep{0pt}}}%
+
+\endinput
