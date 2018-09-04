@@ -52,7 +52,7 @@ i.e. `FolderMaker -p NewProject` creates NewProject folder
 ```bash
 cp -r $HOME/Desktop/Common/PaperTemplate/* .
 ```
-note that if collaborators use `natbib` rather than `biber`, you need to code out some lines from `SetupDefs.sty` i.e. `\RequirePackage[ backend=biber,...`
+note that if collaborators use `natbib` rather than `biber`, you need to code out some lines from `Writing/SetupDefs.sty` i.e. `\RequirePackage[ backend=biber,...`
 
 
     
