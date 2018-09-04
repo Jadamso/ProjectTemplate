@@ -25,8 +25,8 @@ cp -r ./GitTemplate $HOME/Desktop/Common
 ```
 
 
-
-
+code templates for submitting batch jobs on a cluster,
+often added to project code directories
 ```bash
 cp ./Code ./Code2 ./CodeSub ./CodeSub2 $HOME/Programs
 cp -r ./ALLBLOCKS.sh ./QSUBfunctions.sh $HOME/Desktop/Common
