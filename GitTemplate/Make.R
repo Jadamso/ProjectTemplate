@@ -37,8 +37,4 @@ citation(pack)
 
 print("Done")
 
-## source("~/Desktop/Packages/SetupGameR/Code/TerritoryR.R")
-
 ## R CMD BATCH --no-save Code/Make.R && rm Make.Rout
-
-
