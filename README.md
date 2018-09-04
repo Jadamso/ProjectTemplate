@@ -42,14 +42,18 @@ cp RSYNCexcludes.txt $HOME/Desktop/Common
 
 ## How to Use
 
-To Create a standardized research project directory
+Either copy the folders or run the program
+
+i.e. `FolderMaker -p NewProject' creates NewProject folder
+
+
+#### For standardized research project directory
 
 ```bash
 cp -r $HOME/Desktop/Common/PaperTemplate/* .
-#FolderMaker -p NewProject
 ```
 
-To Create a standardized Rpackage in the current directory
+#### For a standardized Rpackage directory
 ```bash
 cp -r $HOME/Desktop/Common/GitTemplate/* .
 ```
