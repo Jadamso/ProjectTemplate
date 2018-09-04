@@ -52,7 +52,10 @@ i.e. `FolderMaker -p NewProject` creates NewProject folder
 ```bash
 cp -r $HOME/Desktop/Common/PaperTemplate/* .
 ```
+note that if collaborators use `natbib` rather than `biber`, you need to code out some lines from `SetupDefs.sty` i.e. `\RequirePackage[ backend=biber,...`
 
+
+    
 #### For a standardized Rpackage directory
 ```bash
 cp -r $HOME/Desktop/Common/GitTemplate/* .
