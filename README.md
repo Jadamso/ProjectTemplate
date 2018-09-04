@@ -9,7 +9,6 @@ Clone this repo
 
 ```bash
 https://github.com/Jadamso/ProjectTemplate.git
-
 ```
 
 make `FolderMaker` program to be in path
@@ -17,12 +16,35 @@ make `FolderMaker` program to be in path
 ```bash
 cp ./FolderMaker $HOME/Programs/FolderMaker
 # (Alternative symbolic link) ln -sf ./FolderMaker $HOME/Programs/FolderMaker
-
 ```
 
 make GitTemplate to be in copyable Directory
 
 ```bash
 cp -r ./GitTemplate $HOME/Desktop/Common
-
 ```
+
+
+
+## How to Use
+
+To Create a standardized research project directory
+
+```bash
+FolderMaker NewProject
+```
+
+To Create a standardized Rpackage in the current directory
+```bash
+cp -r $HOME/Desktop/Common/GitTemplate/* .
+```
+
+If all R_codes are in `Code/R_Code` 
+you can quickly create Rpackages with `R CMD BATCH --no-save Code/Make.R Code/Make.Rout`
+Alternatively add the following alias to `~/.bashrc` and call `mrp`
+```bash
+alias mrp='R CMD BATCH --no-save Code/Make.R Code/Make.Rout'
+```
+
+
+
