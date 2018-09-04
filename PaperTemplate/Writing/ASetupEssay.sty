@@ -1,0 +1,64 @@
+%\input{/home/Jadamso/Desktop/Common/Latex/Setup.tex}
+%\newcommand{\setupfolder}{/home/Jadamso/Desktop/Common/Latex}
+\RequirePackage{ASetup}
+\RequirePackage{multirow}
+\addbibresource{/home/Jadamso2/Desktop/Common/Latex/LatexSetup/Bibliography.bib}
+%  ================================================================
+%  Document Style
+%  ================================================================
+
+\linespread{1}
+\setlength\parskip{\baselineskip}
+
+%  ================================================================
+%  Custom Commands
+%  ================================================================
+
+%\usepackage{color,soul}
+
+\newcommand{\Response}[0]{
+\newpage
+Jordan Adamson\\
+\today
+\begin{center} \vspace*{-1\baselineskip}
+\Large{\textbf{Reading Response} }
+\end{center}
+}
+
+\newcommand{\EssayTitle}[3]{
+	\title{
+		 \vspace*{-3\baselineskip} #1 \vspace*{-1\baselineskip}
+	}
+	\author{
+		\citeauthor{#2} (\citeyear{#2}) %, \textit{\citetitle{#2}}
+		\vspace*{-1\baselineskip}
+		%\href{mailto:Jadamso@g.clemson.edu}{Jordan Adamson} 
+	}
+	\date{
+		\vspace*{-1\baselineskip} #3
+	}
+ 	%{\csname \let\Title\@title \endcsname}
+	%{\csname \let\Author\@author \endcsname}
+ 	%{\csname \let\Date\@date \endcsname}
+	\def\Title\@title
+	\def\Author\@author
+	\def\Date\@date
+}
+
+\newcommand{\ReadingAssignment}[3]{
+	\begin{center} \vspace*{-1\baselineskip}
+	\Large{\textbf{Reading Assignment} }
+	\end{center}
+	{\large
+	\citeauthor{#1} (\citeyear{#1})  \\ %\textit{\citetitle{#1}} \\
+	#2 \vspace*{-1\baselineskip}
+	\begin{itemize} 
+	#3
+	\end{itemize}
+	}
+}
+
+
+\def\ReadingNotes{You are encouraged to read the entire chapter. Only the excerpts are mandatory.}
+\def\DiscussantNotes{\textbf{Discussants:} The following students are bringing articles this week.}
+

@@ -1,0 +1,71 @@
+\RequirePackage{ASetup}
+
+\RequirePackage{pgfplots}
+
+
+
+%  =================================================================
+%  Custom Commands
+%  =================================================================
+
+\setlength\parskip{\baselineskip}
+\setlength\parindent{0pt}
+
+
+\makeatletter
+\author{ \href{mailto:Jadamson@chapman.edu}{Jordan Adamson} }
+\let\Author\@author
+\date{\today}
+\let\Date\@date
+%\title{Things about Stuff} \let\Title\@title
+\makeatother
+
+
+\fancyhead{}
+\rhead{\Date}
+\lhead{\Author }
+\renewcommand{\headrulewidth}{1pt}
+
+
+
+\newcommand{\hbf}[2]{\textbf{#1} \\ \hline}
+\newcommand{\ebf}[2]{\textbf{#1} \\ \bottomrule}
+
+
+
+\endinput
+
+
+%  =================================================================
+%  Example Content
+%  =================================================================
+
+\begin{document}
+
+
+%%%% To Use a Title Page
+\title{ Optional Title }
+\author{ \href{mailto:Jadamson@chapman.edu}{Jordan Adamson} }
+\date{\today}
+\maketitle
+%%%% To use a header Title
+\chead{ Optional Header}
+
+%%%% To mark as incomplete draft
+%\SetWatermarkText{INCOMPLETE}
+%\SetWatermarkScale{1}
+
+%%% Body
+\textbf{Question}:\\
+\\
+\textbf{Hypothesis}:\\
+\\
+\textbf{Background}:\\
+\\
+\textbf{Model}:\\
+\\
+\textbf{Data}:\\
+
+
+\end{document}
+

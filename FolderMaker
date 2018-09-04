@@ -190,8 +190,9 @@ cp_safe $LTX/Paper.tex.template $PAPER/Writing/Paper.tex
 ###################
 
 if [[ $DropBoxFlag == "TRUE" ]] ; then
-    cp -r $LTX/LatexSetup/* $PAPER
-    echo "" > $PAPER/Bibliography.bib
+    cp -r $LTX/LatexSetup/* $PAPER/Writing
+    echo "" > $PAPER/Writing/Bibliography.bib
+    echo "" > $PAPER/Writing/Bibliography.bib.bak
 fi
 
 
