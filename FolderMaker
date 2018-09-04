@@ -36,14 +36,16 @@ cp_safe () {
 
 PAPER="NewFolder"
 GitFlag="FALSE"
+GitFlag2=$GitFlag
 DropBoxFlag="FALSE"
 RPackageFlag="FALSE"
 
-while getopts 'p:GDR' opt
+while getopts 'p:GgDR' opt
 do
     case "${opt}" in
         p) PAPER="${OPTARG}";;
         G) GitFlag="TRUE";;
+        g) GitFlag2="TRUE";;
         D) DropBoxFlag="TRUE";;
         R) RPackageFlag="TRUE";;
     esac
@@ -97,9 +99,11 @@ done
 # Bash and R Code 
 ###################
 
-cp_safe $HOME/Desktop/Common/ALLBLOCKS.sh $PAPER/Code/ALLBLOCKS.sh
+CURDIR=$HOME/Desktop/Common
 
-cp_safe $HOME/Desktop/Common/RBLOCK_INFO.R $PAPER/Code/R_Code/RBLOCK_INFO.R 
+cp_safe $CURDIR/ALLBLOCKS.sh $PAPER/Code/ALLBLOCKS.sh
+
+cp_safe $CURDIR/RBLOCK_INFO.R $PAPER/Code/R_Code/RBLOCK_INFO.R 
 
 hdir=`pwd`/$PAPER/
 echo -e "
@@ -182,14 +186,13 @@ cp_safe $LTX/Paper.tex.template $PAPER/Writing/Paper.tex
 
 #------------------------------------------------------------------
 ###################
-# DropBox Copy Sty Files
+# DropBox, Copy Sty Files
 ###################
 
 if [[ $DropBoxFlag == "TRUE" ]] ; then
-    cp -r $HOME/Desktop/Common/Latex/LatexSetup/* $PAPER
+    cp -r $LTX/LatexSetup/* $PAPER
     echo "" > $PAPER/Bibliography.bib
 fi
-
 
 
 #------------------------------------------------------------------
@@ -207,7 +210,7 @@ fi
 # Github: 
 ###################
 
-if [[ $GitFlag == "TRUE" ]] ; then
+if [[ $GitFlag2 == "TRUE" ]] ; then
 
 ## https://help.github.com/articles/adding-an-existing-project-to-github-using-the-command-line/
 ## https://hub.github.com/
