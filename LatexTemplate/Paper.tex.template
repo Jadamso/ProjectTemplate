@@ -1,0 +1,37 @@
+%  =================================================================
+%  Setup
+%  =================================================================
+
+%% General Setup
+\RequirePackage{ASetup}
+\addbibresource{Bibliography.bib}
+\linespread{1}
+
+%% Paper Specific Setup
+%\newcommand{\PAPER}{.}
+%\newcommand{\texfolder}{./Writing/}
+%\newcommand{\imagefolder}{\PAPER/Figures}
+%\newcommand{\tablefolder}{\PAPER/Tables}
+
+%  =================================================================
+%  Content
+%  =================================================================
+\begin{document}
+
+\input{Title.tex}
+\input{Introduction.tex}
+\input{Background.tex}
+\input{Theory.tex}
+\input{Data.tex}
+\input{Empirics.tex}
+\input{Conclusion.tex}
+
+\newpage
+
+\printbibliography
+
+\newpage
+
+\input{Appendix.tex}
+
+\end{document}

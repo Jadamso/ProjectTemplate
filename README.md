@@ -20,7 +20,7 @@ cp ./FolderMaker $HOME/Programs
 
 make Latex templates  to be in copyable Directory
 ```bash
-cp -r ./Latex $HOME/Desktop/Common
+cp -r ./LatexTemplate $HOME/Desktop/Common/Latex
 ```
 
 make GitTemplate to be in copyable Directory

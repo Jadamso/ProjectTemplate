@@ -1,0 +1,286 @@
+
+%\input{/home/Jadamso/Desktop/Common/Latex/Setup.tex}
+%\newcommand{\setupfolder}{/home/Jadamso/Desktop/Common/Latex}
+%\RequirePackage{./ASetup}
+
+%  ================================================================
+%  Style
+%  ================================================================
+\documentclass[addpoints, 12pt]{exam}
+
+\RequirePackage[
+  margin=.8in,
+  top=0.8in,
+  footskip=12pt,
+  includefoot
+  ]{geometry}
+
+\RequirePackage{ASetupDefs}
+\addbibresource{/home/Jadamso/Desktop/Common/Latex/LatexSetup/Bibliography.bib}
+
+%  ================================================================
+%  Setup
+%  ================================================================
+
+\makeatletter
+\author{\mauthor}
+\date{\today}
+\let\Author\@author
+\let\Date\@date
+%\title{Things about Stuff} \let\Title\@title
+\makeatother
+
+
+%  ================================================================
+%  Document Style
+%  ================================================================
+
+\setlength\parskip{0pt}
+\setlength\parindent{0pt}
+\pagestyle{foot}
+
+%  ================================================================
+%  Hyper Setup
+%  ================================================================
+\PassOptionsToPackage{hyphens}{url}
+\expandafter\def\expandafter\UrlBreaks\expandafter{\UrlBreaks%  save the current one
+  \do\a\do\b\do\c\do\d\do\e\do\f\do\g\do\h\do\i\do\j%
+  \do\k\do\l\do\m\do\n\do\o\do\p\do\q\do\r\do\s\do\t%
+  \do\u\do\v\do\w\do\x\do\y\do\z\do\A\do\B\do\C\do\D%
+  \do\E\do\F\do\G\do\H\do\I\do\J\do\K\do\L\do\M\do\N%
+  \do\O\do\P\do\Q\do\R\do\S\do\T\do\U\do\V\do\W\do\X%
+  \do\Y\do\Z}
+  
+\RequirePackage[breaklinks]{hyperref}
+%\usepackage[hyphenbreaks]{breakurl}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    citecolor=black,
+    urlcolor=blue,
+    pdfborder={0 0 0},
+    pdfauthor={Jordan Adamson},     % author
+    pdfcreator={Jordan Adamson}
+}
+%anchorcolor [black]
+%filecolor [cyan]
+%menucolor [red]
+%runcolor [cyan - same as file color]
+%urlcolor [magenta]
+%allcolors
+
+%\newcommand{\burl}[1]{  \textcolor{blue}{\url{#1}} }
+
+%\urlstyle{same} %\urlstyle{tt}
+
+%  ================================================================
+%  Titles
+%  ================================================================
+
+%\usepackage{titling}
+%\newcommand{\subtitle}[1]{%
+%  \posttitle{%
+%    \par\end{center}
+%    \begin{center}\large#1\end{center}
+%    \vskip0.5em}%
+%}
+
+
+%  ================================================================
+%  Headers and Footers
+%  ================================================================
+
+\setlength{\headheight}{15.2pt}
+\pagenumbering{arabic}
+
+% Footers
+\covercfoot{}
+\coverrfoot{\thepage}
+\cfoot{}
+\rfoot{\thepage} 
+%\lfoot{}
+%\fancyfoot[R]{\thepage}
+%\fancyfoot[L]{\nouppercase{\rightmark}}
+%\fancypagestyle{plain}{%
+%    \renewcommand{\headrulewidth}{0pt}%
+%    \fancyhf{}%
+%    \fancyfoot[R]{\thepage}%
+%}
+
+
+
+%  ================================================================
+%  Nice Question Spacing
+%  ================================================================
+\RequirePackage{etoolbox}
+%\makeatletter
+%\AtBeginEnvironment{choices}{ \par\medskip \begin{minipage}{\linewidth}	}
+%\makeatother
+
+%\makeatletter
+%\AtEndEnvironment{choices}{ \end{minipage} \par\medskip }
+%\makeatother
+
+\makeatletter
+\AtBeginEnvironment{choices}{ \vspace{\baselineskip}}
+\makeatother
+
+
+\newcommand{\Q}[2][1]{
+	\vspace{\baselineskip}
+	\begin{minipage}{#1\linewidth}
+	#2
+	\end{minipage}
+	\vspace{2\baselineskip}
+}
+
+%https://cran.r-project.org/web/packages/RndTexExams/vignettes/rte-vignette_creating_exams.html
+
+
+%\def\skipn{1.8\baselineskip}
+
+\newcommand{\A}[2][1.8\baselineskip]{
+	\begin{solutionorbox}[#1]
+	%\vspace{-\baselineskip}
+	%\begin{eqnarray*} %\text { }
+	#2
+	%\end{eqnarray*}
+	\end{solutionorbox}
+}
+
+
+%  ================================================================
+%  End Table for Multiple Choice
+%  ================================================================
+%% See also https://tex.stackexchange.com/questions/310917/answers-in-table-at-the-end-of-document-in-exam-template
+
+\newcommand{\AnswerTable}[0]{
+	\newpage
+
+    \thispagestyle{empty}
+	\pagenumbering{gobble}
+
+	\begin{center}
+	\vspace{-\baselineskip}
+	\footnotesize
+	\vsword{Answer}
+	%\vpword{Points}
+	\gradetable[v][questions]
+	\end{center}
+}
+
+
+%\begin{center}
+%/ \numpoints 
+%\combinedgradetable[h][questions]
+%\end{center}
+
+
+
+\newcommand{\AnswerTableAlt}[0]{
+	\begin{figure}[H]
+	\caption*{Exam Score}
+	\begin{center}
+	\begin{tabular}{|l|r|c|}
+	 \toprule
+	 \multicolumn{3}{|c|}{\textbf{Exam Score}}                           \\
+	 %\textbf{Section}			& \textbf{Points}			& \textbf{Score} \\ \midrule
+	 %\nameref{sect:GDP}		& \pointsinrange{GDP}		&                \\ %\hline
+	 %\nameref{sect:GDPcalc}	& \pointsinrange{GDPcalc}	&                \\ %\hline	
+	 %\nameref{sect:GDPwelf}	& \pointsinrange{GDPwelf}	&                \\ %\hline
+	 %\nameref{sect:GDPint}		& \pointsinrange{GDPint}	&                \\ %\hline
+	 %\nameref{sect:GDPgrowth}	& \pointsinrange{GDPgrowth}	&                \\ %\hline
+	 %\nameref{sect:inflate}	& \pointsinrange{inflate}	&                \\ %\hline
+	 %\nameref{sect:facts}		& \pointsinrange{facts}		&                \\ %\hline
+	 %\nameref{sect:book}		& \pointsinrange{book}		&                \\ %\hline
+	% Bonus						& \numbonuspoints			&                \\ \hline
+	 \hline Total			& \numpoints			&                \\ \bottomrule
+	\end{tabular}
+	\end{center}
+	\end{figure}
+}
+
+%  ================================================================
+%  Exam Header
+%  ================================================================
+
+
+
+\newcommand{\ExamHead}[2]{
+\begin{flushright}
+\today
+\end{flushright}
+
+\begin{center}
+\fbox{\fbox{\parbox{5.5in}{\centering #1}}}
+\end{center}
+
+\vspace{\baselineskip}
+ \makebox[\textwidth]{Name:\enspace\hrulefill} \\
+
+ \vspace{2\baselineskip}
+ #2 \\
+\vspace{.5\textheight}%\theanswers
+
+
+\pagenumbering{gobble}
+\clearpage
+\pagenumbering{arabic}
+}
+
+
+\def\ExamPoints{
+	\nopointsinmargin   
+	\pointformat{}   
+	\pointpoints{}{}
+	\addpoints
+}
+
+
+
+\def\ExamNotes{This exam has \pageref{pagesLTS.arabic} pages of questions with $\numpoints$ total points available. This exam is closed-book and closed-note. Calculators are permitted but phones are prohibited. Use an HB2 pencil to fill in the Scantron. When you are finished the exam place the scantron underneath the first page of the exam, return the exam to me, then quietly exit the class.}
+%\def\ExamNotes{This is a closed-book and closed-note exam. Calculators are permitted. Phones are prohibited}
+
+\def\HWnotes{All questions have points marked beside them. Questions worth 0 points are optional, but would be good practice. If a question does not have points marked, then it is worth 1 point. %Points will be deducted if you do not show your work on questions that use calculations. Write short and concise answers.
+\begin{center}
+/ \numpoints
+\end{center}
+}
+
+
+%  ================================================================
+%  Page Numbering
+%  ================================================================
+
+\RequirePackage{pageslts} % \lastpageref{LastPages} 
+
+
+%\usepackage{lastpage} %\pageref{LastPage}
+%\AtBeginShipout{%
+%  \ifnum\value{page}=\number\numexpr\getpagerefnumber{LastPage}-2\relax
+%    \phantomsection\label{preLastPage}
+%  \fi}
+
+
+
+%\makeatletter
+%\let\gobble@thepage\thepage
+%\newcommand{\@gobble@thepagehook}{ }
+%\newcommand{\@nogobble@thepagehook}{ \thepage{} }
+%  \ifx\gobble@thepage\thepage
+%  \@gobble@thepagehook%
+%  \else
+%  \@nogobble@thepagehook%
+%  \fi
+%\makeatother
+
+
+%  ================================================================
+%  Exam Questions
+%  ================================================================
+
+%\Q{\question[1] 
+%\begin{choices}
+% \choice 
+% \CorrectChoice
+%\end{choices} }

@@ -1,0 +1,273 @@
+\RequirePackage{tikz}
+\usetikzlibrary{calc}   %allows coordinate calculations.
+\usetikzlibrary{decorations.pathreplacing}           %allows drawing curly braces.
+\RequirePackage{ifthen}
+%\usetikzlibrary{intersections} 
+%\usepackage[nomessages]{fp}% http://ctan.org/pkg/fp
+
+
+%% Special Thanks to 
+%https://thetarzan.wordpress.com/category/tikz-for-economists/
+
+%% See Also
+%http://www.texample.net/tikz/examples/area/economics/
+%http://www.texample.net/tikz/examples/area/statistics/
+
+
+%  ===========================================================================
+%  Content
+%  ===========================================================================
+
+\newcommand\QEQ[4]{%
+    %Define linear parameters
+    \def\dint{#1}    %Y-intercept for DEMAND.
+    \def\dslp{#2}    %Slope for DEMAND.
+    \def\sint{#3}    %Y-intercept for SUPPLY.
+    \def\sslp{#4}    %Slope for SUPPLY.
+    \def\qeq{ {(\sint-\dint)/(\dslp-\sslp)} }
+    \qeq
+}
+
+\newcommand\PEQ[4]{%
+    %Define linear parameters
+    \def\dint{#1}    %Y-intercept for DEMAND.
+    \def\dslp{#2}    %Slope for DEMAND.
+    \def\sint{#3}    %Y-intercept for SUPPLY.
+    \def\sslp{#4}    %Slope for SUPPLY.
+    \def\peq{ { (\sing-\dint)/(\dslp-\sslp)*\sslp+\sint} }
+    \peq
+}
+
+
+% Draw axes
+\newcommand\FRAME[2]{ %
+    \def\xmax{#1}
+    \def\ymax{#2}
+    \coordinate (origin)  at  (0, 0);
+    \draw[->] (origin) -- ({\xmax},0) node[right] {$Q$};
+    \draw[->] (origin) -- (0,{\ymax}) node[above] {$P$};
+}
+
+%% Supply and Demand
+\newcommand\EQUILIBRIUM[4]{ %
+    %Define linear parameters
+        \def\dint{#1}    %Y-intercept for DEMAND.
+        \def\dslp{#2}    %Slope for DEMAND.
+        \def\sint{#3}    %Y-intercept for SUPPLY.
+        \def\sslp{#4}    %Slope for SUPPLY.
+    % Define equilibrium points
+        %\def\qeq{ \QEQ{\dint}{\dslp}{\sint}{\sslp} }
+        %\def\peq{ \PEQ{\dint}{\dslp}{\sint}{\sslp} }
+        \def\qeq{ {(\sint-\dint)/(\dslp-\sslp) } }
+        \def\peq{ {(\sint-\dint)/(\dslp-\sslp)*\sslp+\sint} }
+    % Define equilibrium coordinates.
+        \coordinate (ints)  at  ( \qeq, \peq);
+        \coordinate (ep)    at  ( 0, \peq);
+        \coordinate (eq)    at  ( \qeq, 0);
+        \coordinate (dint)  at  ( 0, \dint);
+        \coordinate (sint)  at  ( 0, \sint);
+    % DEMAND
+        \def\demand{\x,{\dslp*\x+\dint}}
+        \draw[thick,color=blue] plot (\demand) node[right] {Demand}; %{$P(q) = -\frac{1}{2}q+\frac{9}{2}$};
+    % SUPPLY
+        \def\supply{\x,{\sslp*\x+\sint}}
+        \draw[thick,color=purple] plot (\supply) node[right] {Supply};
+    % Equilibirum Price
+        \def\pp{\pgfmathparse{ \peq }\pgfmathprintnumber[precision=1] \pgfmathresult}
+        \draw[thin] (ep) node[left]{$P*=\pp$}-- (ints);
+    % Equilibirum Quantity
+        \def\qq{\pgfmathparse{ \qeq }\pgfmathprintnumber[precision=1] \pgfmathresult}
+        \draw[thin] (eq) node[below]{$Q*=\qq$}-- (ints);
+}
+
+
+%% Price Floor 
+%https://thetarzan.wordpress.com/2011/06/11/tikz-diagrams-for-economists-a-price-floor/
+\newcommand\PRICEFLOOR[5]{%
+    %Define linear parameters
+        \def\dint{#2}    %Y-intercept for DEMAND.
+        \def\dslp{#3}    %Slope for DEMAND.
+        \def\sint{#4}    %Y-intercept for SUPPLY.
+        \def\sslp{#5}    %Slope for SUPPLY.
+    % Define distorted points
+        \def\pfc{#1}     %Price floor or ceiling
+        \def\qd{ { (\pfc-\dint)/(\dslp) } }
+        \def\qs{ { (\pfc-\sint)/(\sslp) } }
+    % Define distorted coordinates.
+        \coordinate (dfq)   at  ( {\qd}, -0.5);
+        \coordinate (dfp)   at  ( {\qd}, {\pfc});
+        \coordinate (sfq)   at  ( {\qs}, -0.5);
+        \coordinate (sfp)   at  ( {\qs}, {\pfc});
+    %Price Lines
+        \draw[dashed,color=black] plot (\x,{\pfc}) ;%node[right] {$P_f$};
+        \draw[dashed] (dfp) -- (dfq) node[below] {$Q_d$};
+        \draw[dashed] (sfp) -- (sfq) node[below] {$Q_s$};
+     %Fixed Price Axis
+        \def\Pf{$P_f=\pfc$}
+        %\draw[->,baseline=5] ($(0,{\pfc})+(-1.5,0.7)$) node[label= left:\Pf] {} -- ($(0,{\pfc})+(-.1,0.1)$);
+        \draw[dashed] (-2,{\pfc}) node[left] {\Pf} -- (0,{\pfc});
+    % Equilibrium
+        \def\qeq{ {(\sint-\dint)/(\dslp-\sslp) } }
+        \def\peq{ {(\sint-\dint)/(\dslp-\sslp)*\sslp+\sint} }
+        \coordinate (ints)  at  ( \qeq, \peq);
+    %Dead Weight Loss
+        \def\pqs{ {  \sslp*(\pfc-\dint)/\dslp + \sint } }
+        \coordinate (pqs)   at  ( {\qd}, {\pqs} );
+        \draw [fill=gray, opacity=0.5] (pqs) -- (ints)  -- (dfp) -- cycle;
+}
+
+
+%% Price Ceiling 
+\newcommand\PRICECEILING[5]{%
+    %Define linear parameters
+        \def\dint{#2}    %Y-intercept for DEMAND.
+        \def\dslp{#3}    %Slope for DEMAND.
+        \def\sint{#4}    %Y-intercept for SUPPLY.
+        \def\sslp{#5}    %Slope for SUPPLY.
+    % Define distorted points
+        \def\pfc{#1}     %Price floor or ceiling
+        \def\qd{ { (\pfc-\dint)/(\dslp) } }
+        \def\qs{ { (\pfc-\sint)/(\sslp) } }
+    % Define distorted coordinates.
+        \coordinate (dfq)   at  ( {\qd}, -0.5);
+        \coordinate (dfp)   at  ( {\qd}, {\pfc});
+        \coordinate (sfq)   at  ( {\qs}, -0.5);
+        \coordinate (sfp)   at  ( {\qs}, {\pfc});
+    %Price Lines
+        \draw[dashed,color=black] plot (\x,{\pfc}) ;%node[right] {$P_f$};
+        \draw[dashed] (dfp) -- (dfq) node[below] {$Q_d$};
+        \draw[dashed] (sfp) -- (sfq) node[below] {$Q_s$};
+     %Fixed Price Axis
+        \def\Pf{$P_c=\pfc$}
+        %\draw[->,baseline=5] ($(0,{\pfc})+(-1.5,-0.7)$) node[label= left:\Pf] {} -- ($(0,{\pfc})+(-.1,-0.1)$);
+        \draw[dashed] (-2,{\pfc}) node[left] {\Pf} -- (0,{\pfc});
+    % Equilibrium
+        \def\qeq{ {(\sint-\dint)/(\dslp-\sslp) } }
+        \def\peq{ {(\sint-\dint)/(\dslp-\sslp)*\sslp+\sint} }
+        \coordinate (ints)  at  ( \qeq, \peq);
+    %Dead Weight Loss
+        \def\pqd{ {  \dslp*(\pfc-\sint)/\sslp + \dint  } }
+        \coordinate (pqd)   at  ( {\qs}, {\pqd} );
+        \draw [fill=gray, opacity=0.5] (pqd) -- (ints) -- (sfp) -- cycle;
+}
+
+
+
+
+
+
+%https://thetarzan.wordpress.com/2011/06/17/tikz-diagrams-for-economists-an-excise-tax/
+\newcommand\TAX[5]{%
+    %Define linear parameters
+        \def\dint{#2}    %Y-intercept for DEMAND.
+        \def\dslp{#3}    %Slope for DEMAND.
+        \def\sint{#4}    %Y-intercept for SUPPLY.
+        \def\sslp{#5}    %Slope for SUPPLY.
+    % Define distorted points
+        \def\tax{#1}     %Excise (per-unit) tax
+    % Distorted Quantity
+        \def\tqd{ {(\sint+\tax-\dint)/(\dslp-\sslp)} }
+        \def\tqs{\tqd}
+        \coordinate (teq)    at  ({\tqd},-1); %quantity
+    % Distorted Demand Price
+        \def\tpd{ {(\sint+\tax-\dint)/(\dslp-\sslp)*\sslp+\sint+\tax } }
+        \coordinate (tep)    at  (-3,{\tpd}); %price
+        \coordinate (tdint)  at  ({\tqd},{\tpd}); %tax equilibrium
+    % Distorted Suply Price
+        \def\tps{ {\sslp*(\sint+\tax-\dint)/(\dslp-\sslp)+\sint} }
+        \coordinate (sep)    at  (-3,{\tps});
+        \coordinate (tsint)  at  ({\tqs},{\tps}); %tax equilibrium
+    % Draw dotted equilibrium prices.
+        \draw[decorate,decoration={brace},thick] (sep) -- (tep) node[midway,below=-8pt,xshift=-18pt] {$T=\tax$};
+        \def\TPD{\pgfmathparse{ \tpd }\pgfmathprintnumber[precision=1] \pgfmathresult}
+        \draw[dashed] (tdint) -- (tep) node[above] {$P_d=\TPD$};  
+        \def\TPS{\pgfmathparse{ \tps }\pgfmathprintnumber[precision=1] \pgfmathresult}
+        \draw[dashed] (tsint) -- (sep) node[below] {$P_s=\TPS$};
+    % Draw dotted equilibrium quantity.
+        \draw[dashed] (tdint) -- (teq) node[below] {$Q_T$};
+    % Equilibrium
+        \def\qeq{ {(\sint-\dint)/(\dslp-\sslp) } }
+        \def\peq{ {(\sint-\dint)/(\dslp-\sslp)*\sslp+\sint} }
+        \coordinate (ints)  at  ( \qeq, \peq);
+    %Dead Weight Loss
+        \draw [fill=gray, opacity=0.5] (tsint) -- (ints) -- (tdint) -- cycle;
+}
+
+
+
+
+
+
+
+%  ===========================================================================
+%  Misc
+%  ===========================================================================
+
+ 
+
+\newcommand\RECTANGLE[5]{ %
+    \def\xo{#1}
+    \def\xx{#2}
+    \def\yo{#3}
+    \def\yy{#4}
+    \draw[#5] (\xo,\yo) -- (\xx,\yo) -- (\xx,\yy) -- (\xo,\yy) -- (\xo,\yo);
+}
+
+
+
+
+
+
+
+
+
+\endinput
+
+\exit
+
+
+
+%  ===========================================================================
+%  Example
+%  ===========================================================================
+
+ 
+\begin{tikzpicture}[domain=0:20,thick, xscale=.5,yscale=1]
+    \centering
+    \FRAME{20}{6}
+    \EQUILIBRIUM{7}{-0.5}{-.5}{0.25} %\DINT, \DSLP, \SINT, \SSLP
+    \PRICEFLOOR{4}{7}{-0.5}{-.5}{0.25} %\DINT, \DSLP, \SINT, \SSLP, \PFC
+    \PRICECEILING{4}{7}{-0.5}{-.5}{0.25} %\DINT, \DSLP, \SINT, \SSLP, \PFC
+    \TAX{1}{7}{-0.5}{-.5}{0.25} %\DINT, \DSLP, \SINT, \SSLP, \PFC
+\end{tikzpicture}
+
+
+
+
+
+%% Distributions
+\tikzset{
+    declare function={
+        bellshape(\x,\mu,\sigma)=exp(-(\x-\mu)^2/(2*\sigma^2));
+    }
+    declare function={
+        normal(\x,\mu,\sigma)=1/(2.5066283*\sigma)*bellshape(\x,\mu,\sigma);
+    }
+    declare function={
+        gamma(\z)= (2.506628274631*sqrt(1/\z) + 0.20888568*(1/\z)^(1.5) + 0.00870357*(1/\z)^(2.5) - (174.2106599*(1/\z)^(3.5))/25920 - (715.6423511*(1/\z)^(4.5))/1244160)*exp((-ln(1/\z)-1)*\z);
+    }
+    declare function={
+        tpdf(\x,\nu) = gamma(0.5*(\nu+1))/(sqrt(3.1415927*\nu)*gamma(\nu/2))*(1+\x^2/\nu)^(-(\nu+1)/2);
+    }
+}
+
+
+
+
+
+
+
+
+
+
+

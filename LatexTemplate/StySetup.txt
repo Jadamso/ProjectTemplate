@@ -1,0 +1,8 @@
+sudo mktexlsr ~/texmf
+texhash ~/texmf
+mkdir -p ~/texmf/tex/latex/
+ln -s ~/Desktop/Common/Latex/LatexSetup ~/texmf/tex/latex/local
+
+# sty2dtx ASetup.sty > ASetup.dtx
+# ctanify ASetup.dtx ASetup.sty
+

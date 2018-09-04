@@ -1,0 +1,68 @@
+%  =================================================================
+%  Setup
+%  =================================================================
+
+%% General Setup
+\RequirePackage{ASetupSlides}
+
+%% Paper Specific Setup
+%\newcommand{\PAPER}{.}
+%\newcommand{\texfolder}{\PAPER/Writing}
+%\newcommand{\imagefolder}{\PAPER/Figures}
+%\newcommand{\tablefolder}{\PAPER/Tables}
+
+% Title
+\title[]{ }
+%\subtitle{}
+\author{\textbf{Jordan Adamson}}
+\institute[]{Economics Dept, Chapman University, California}
+\date{\today}
+
+
+\begin{document}
+\begin{frame}
+\titlepage
+\small{\href{mailto:Jadamso@g.clemson.edu}{ \color{blue}{Jadamso@clemson.edu}} }
+\end{frame}
+
+
+\section{Beginning}
+\begin{frame}{Research Question}\large
+\end{frame}
+
+
+\begin{frame}{Middle} \label{slide:Middle}
+
+    \textbf{}
+	\begin{itemize}[label={\textbullet}]
+	\item \citeFG{(\cite{ }) } \\
+	\end{itemize}
+	
+	\itemi{}
+	\subitemi{}
+
+    \begin{figure}[H]
+    \vspace{-.5cm}
+    \centering
+	    \includegraphics[width=7cm, height=4cm, trim=1cm 2cm 2cm 2.5cm]{../Figures/Figure.pdf}\\
+    \end{figure}
+
+
+    \begin{table}[H] \centering 
+    %\caption{} 
+    \label{tab:NewTab} 
+    \begin{tabular}{@{\extracolsep{0pt}} l|ll} 
+            & 1      & 2    \\ 
+    \hline \\[-1.8ex] 
+            & $Hi$  & $Ho$  \\  
+    \end{tabular} 
+    \end{table} 
+
+\FrameButton[.15]{slide:Middle}{Middle}
+
+\end{frame}
+
+
+\begin{frame}{End}
+\endsig
+\end{frame}
