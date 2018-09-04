@@ -40,8 +40,6 @@ cp RSYNCexcludes.txt $HOME/Desktop/Common
 ```
 
 
-
-
 ## How to Use
 
 To Create a standardized research project directory
@@ -61,7 +59,4 @@ Alternatively add the following alias to `~/.bashrc` and call `mrp`
 ```bash
 alias mrp='R CMD BATCH --no-save Code/Make.R Code/Make.Rout'
 ```
-
-## How to Use
-
 
