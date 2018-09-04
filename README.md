@@ -11,9 +11,13 @@ Clone this repo
 https://github.com/Jadamso/ProjectTemplate.git
 ```
 
-make FolderMaker Program to be in path (symbolic link)
+make FolderMaker Program to be in path 
 ```bash
-ln -sf $HOME/Programs/FolderMaker ./FolderMaker
+
+cp ./FolderMaker $HOME/Programs/FolderMaker
+# (Alternative symbolic link) ln -sf ./FolderMaker $HOME/Programs/FolderMaker
+
+
 ```
 
 make GitTemplate to be in Copyable Directory
