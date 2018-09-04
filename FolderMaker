@@ -1,0 +1,240 @@
+#! /bin/bash
+###################################################################
+# Jordan Adamson 
+###################################################################
+shopt -s expand_aliases
+source $HOME"/.bashrc"
+
+#------------------------------------------------------------------
+###################
+# Safe Codes
+###################
+
+mkdir_safe () {
+    if test -d $1; then
+        echo "already exists !";
+        #kill -INT $$
+    elif test ! -d $1; then
+        mkdir $1 ;
+    fi
+}
+
+cp_safe () {
+    if test -f $2; then
+        echo "already exists !";
+        #kill -INT $$
+    elif test ! -f $2; then
+        cp $1 $2;
+    fi
+}
+
+
+#------------------------------------------------------------------
+###################
+# Name of New Paper
+###################
+
+PAPER="NewFolder"
+GitFlag="FALSE"
+DropBoxFlag="FALSE"
+RPackageFlag="FALSE"
+
+while getopts 'p:GDR' opt
+do
+    case "${opt}" in
+        p) PAPER="${OPTARG}";;
+        G) GitFlag="TRUE";;
+        D) DropBoxFlag="TRUE";;
+        D) RPackageFlag="TRUE";;
+    esac
+done
+
+#------------------------------------------------------------------
+###################
+# Github Create
+###################
+
+if [[ $GitFlag == "TRUE" ]] ; then
+    ## Push To GitHub
+    git init $PAPER
+    cd  $PAPER
+    hub create -p
+    touch initial
+    cd ..
+    ## Pull From GitHub ## git clone https://github.com/Jadamso/$1.git
+else
+    mkdir_safe $PAPER
+fi
+
+#------------------------------------------------------------------
+###################
+# Make Paper Sub Directories
+###################
+
+
+## Make Paper Sub-Directories
+dnames=$(echo "\
+    Figures \
+    Literature \
+    Old \
+    Presentations \
+    Tables \
+    Writing \
+    Code \
+        Code/R_Output \
+        Code/R_Code \
+    Data \
+        Data/Raw \
+        Data/Clean \
+    Submissions ")
+
+for dname in $dnames; do
+    mkdir_safe "$PAPER/$dname"
+done
+
+#------------------------------------------------------------------
+###################
+# Bash and R Code 
+###################
+
+cp_safe $HOME/Desktop/Common/ALLBLOCKS.sh $PAPER/Code/ALLBLOCKS.sh
+
+cp_safe $HOME/Desktop/Common/RBLOCK_INFO.R $PAPER/Code/R_Code/RBLOCK_INFO.R 
+
+hdir=`pwd`/$PAPER/
+echo -e "
+hdir  <- path.expand(\"$hdir\")
+ddir  <- paste0(hdir, 'Data/')
+cddir <- paste0(ddir, 'Clean/')
+rddir <- paste0(ddir, 'Raw/')
+fdir  <- paste0(hdir, 'Figures/')
+cdir  <- paste0(hdir, 'Code/R_Code/')
+setwd(ddir)
+set.seed(33)
+#sed -i -e 's|oldstring|newstring|g' *.R
+" >> $PAPER/Code/R_Code/Paths.R
+
+
+echo -e "
+#------------------------------------------------------------------
+#########################
+# New Chunk
+#########################
+source(\"$hdir/Code/R_Code/Paths.R\")
+"  >> $PAPER/Code/R_Code/RBLOCK_000.R 
+
+#------------------------------------------------------------------
+###################
+# Latex Writing
+###################
+
+wnames=$(echo "\
+	Introduction \
+	Background \
+	Theory \
+	Data \
+	Empirics \
+	Conclusion \
+	Appendix ")
+
+for wname in $wnames; do
+    echo -e "\section{$wname}\label{sect:$wname}" >> "$PAPER/Writing/$wname".tex
+done
+
+## Abstract
+echo -e  "\label{sect:Abstract}" >> "$PAPER/Writing/Abstract.tex"
+
+## Bibliography
+echo -e  " " >> "$PAPER/Writing/Bibliography.bib"
+
+## Additions to New Files
+echo -e "## Notes" | tee -a "$PAPER/Notes.txt"
+
+echo -e "
+\input{.Tables/Table1.tex}
+\begin{figure}[H]
+\centering
+\caption{NewFig}
+\label{fig:NewFig}
+	\begin{subfigure}[b]{0.45\textwidth}
+	\subcaption{NewFig1}
+	\label{fig:NewFig1}
+		\includegraphics[width=\textwidth, height=.32\paperheight] {./Figures/NewFig1.pdf}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.45\textwidth}
+	\subcaption{NewFig2}
+	\label{fig:NewFig2}
+		\includegraphics[width=\textwidth, height=.32\paperheight] {./Figures/NewFig2.pdf}
+	\end{subfigure}
+\end{figure}
+" >>  "$PAPER/Writing/Data.tex"
+
+
+echo -e "\chapquote{Words \vspace*{-\baselineskip}}{PersonName}{\citeyear{PersonBibtex}}
+    " >>  "$PAPER/Writing/Introduction.tex"
+
+## Writing Templates
+LTX=$HOME/Desktop/Common/Latex
+cp_safe $LTX/Title.tex.template $PAPER/Writing/Title.tex 
+cp_safe $LTX/Paper.tex.template $PAPER/Writing/Paper.tex 
+#cp_safe $LTX/Slides.tex $PAPER/Writing/Slides.tex 
+
+
+#------------------------------------------------------------------
+###################
+# DropBox Copy Sty Files
+###################
+
+if [[ $DropBoxFlag == "TRUE" ]] ; then
+    cp -r $HOME/Desktop/Common/Latex/LatexSetup/* $PAPER
+    echo "" > $PAPER/Bibliography.bib
+fi
+
+
+
+
+#------------------------------------------------------------------
+###################
+# R Package 
+###################
+
+if [[ $RPackageFlag == "TRUE" ]] ; then
+    cp -r $HOME/Desktop/Common/GitTemplate/* $PAPER/Code
+fi
+
+
+#------------------------------------------------------------------
+###################
+# Github: 
+###################
+
+if [[ $GitFlag == "TRUE" ]] ; then
+
+## https://help.github.com/articles/adding-an-existing-project-to-github-using-the-command-line/
+## https://hub.github.com/
+
+    cd $PAPER
+    
+    echo "# $PAPER" >> README.md
+    
+# ignore folders with big files
+echo -e "\
+Old/* \n\
+*/Old/* \n\
+Old/ \n\
+OLD/ \n\
+Data/* \n\
+Figures/* \n\
+Literature/* \n\
+Submissions/* \n" > .gitignore
+
+    
+    git add . &&  git commit -m "First commit"
+    
+    git push -u origin master
+
+    rm initial
+    
+fi
+
+
