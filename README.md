@@ -12,7 +12,7 @@ https://github.com/Jadamso/ProjectTemplate.git
 
 ```
 
-make FolderMaker Program to be in path
+make `FolderMaker` program to be in path
 
 ```bash
 cp ./FolderMaker $HOME/Programs/FolderMaker
@@ -20,7 +20,7 @@ cp ./FolderMaker $HOME/Programs/FolderMaker
 
 ```
 
-make GitTemplate to be in Copyable Directory
+make GitTemplate to be in copyable Directory
 
 ```bash
 cp -r ./GitTemplate $HOME/Desktop/Common
