@@ -1,6 +1,6 @@
-%  =================================================================
+%  ================================================================
 %  Setup
-%  =================================================================
+%  ================================================================
 
 %% General Setup
 \RequirePackage{ASetupSlides}
@@ -63,6 +63,51 @@
 \end{frame}
 
 
+
+
+
 \begin{frame}{End}
 \endsig
+\end{frame}
+
+
+\end{document}
+
+
+
+
+
+
+\begin{frame}{Motivation}\label{slide:Motivation}
+\textbf{Then}
+\itemi{}
+
+\textbf{Now}
+\begin{itemize}[label={\textbullet}]
+\item 
+\end{itemize}
+
+
+\textit{``If a republic be small, it is destroyed by a foreign force; \\ if it be large, it is ruined by an internal imperfection.'' \vspace*{-.5\baselineskip} } \\
+\begin{flushright} Charles-Louis Montesquieu \end{flushright}
+\citeFG{\cite{Mont1}} 
+
+\end{frame}
+
+\begin{frame}{Figures}
+\begin{figure}[H]
+\centering
+%\caption{}
+\label{fig:NewFig}
+	\begin{subfigure}[b]{0.45\textwidth}
+	\subcaption{SubFig1}
+	\label{fig:SubFig1}
+		\includegraphics[width=\textwidth, height=\textheight] {../Figures/Fig.pdf}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.45\textwidth}
+	\subcaption{SubFig2}
+	\label{fig:SubFig2}
+		\includegraphics[width= \textwidth, height=\textheight] {../Figures/Fig2pdf}
+	\end{subfigure}
+\end{figure}
 \end{frame}
