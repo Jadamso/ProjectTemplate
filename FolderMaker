@@ -45,7 +45,7 @@ do
         p) PAPER="${OPTARG}";;
         G) GitFlag="TRUE";;
         D) DropBoxFlag="TRUE";;
-        D) RPackageFlag="TRUE";;
+        R) RPackageFlag="TRUE";;
     esac
 done
 
