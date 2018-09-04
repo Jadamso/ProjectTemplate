@@ -1,0 +1,132 @@
+#! /bin/bash
+###################################################################
+# Jordan Adamson 
+###################################################################
+shopt -s expand_aliases
+source $HOME"/.bashrc"
+
+
+## Defaults
+HDIR=Desktop
+InfoFlag=FALSE
+
+while getopts 'ip:s:W:H:' opt
+do
+    case "${opt}" in
+        ## Flags
+        i) InfoFlag=TRUE;;
+        ## Paper and R_BLOCK Code Names
+        p) PAPER="${OPTARG}";;
+        s) SCRIPT="${OPTARG}";;
+        ## 
+        W) DEP="-W depend=afterok:${OPTARG}";;
+        H) HDIR="${OPTARG}";;
+    esac
+done
+
+#------------------------------------------------------------------
+###################
+# Which Paper
+###################
+
+outdir="$HOME/$HDIR/$PAPER/Code/R_Output/"
+indir="$HOME/$HDIR/$PAPER/Code/R_Code/"
+
+cd $outdir
+echo -e "\e[5;92m $outdir \e[0m"
+
+#------------------------------------------------------------------
+###################
+# Only View Output
+###################
+
+#if [[ $@ =~ "-v" ]] || [[ $@ =~ "--view" ]]; then
+#    rfile=$(find $outdir*".Rout")
+#    declare -a vnames=$(echo $rfile)
+#    for name in "${vnames[@]}"; do
+#        ## Files
+#        infile=$indir"RBLOCK_"$name".R";
+#        outfile=$outdir"RBLOCK_"$name".Rout";
+#        ## Commands
+#        head -n 3 $infile;
+#        tail -n 5 $outfile;
+#        echo
+#    done
+#    exit
+#else
+
+#------------------------------------------------------------------
+###################
+# Software Information
+###################
+
+if [[ "$InfoFlag" == "TRUE" ]]
+then
+    ## Name of RBLOCK
+    filename="RBLOCK_INFO"
+    infile=$indir$filename".R";
+    outfile=$outdir$filename".Rout";
+    
+    echo -e "\e[5;93m $filename \e[0m"
+    
+    echo '
+    #########################
+    # Print any information needed for replication
+    #########################
+    
+    ## Current Date and Time
+    Sys.time()
+    
+    ## Prints computer information
+    Sys.info()
+
+    ## Prints R information
+    sessionInfo()
+
+    ## Rprofile loaded every session
+    readLines( paste0( R.home(), "/etc/Rprofile.site"))
+
+    ## Renvironment loaded every session
+    readLines( paste0( R.home(), "/etc/Renviron"))
+    ' >> $infile
+
+    R CMD BATCH --no-save --quiet --no-restore  $infile $outfile
+    #echo "infile=$infile" >>  $outfile
+    exit
+fi
+
+#------------------------------------------------------------------
+###################
+# Running Codes
+###################
+
+start_time=$(date +%s) #+%M:%S
+
+# Run Code 
+declare -a bnames=( $SCRIPT )
+for name in "${bnames[@]}"
+do
+    ## Name of RBLOCK
+    filename="RBLOCK_"$name
+    infile=$indir$filename".R";
+    outfile=$outdir$filename".Rout";
+    
+    echo -e "\e[5;93m $filename \e[0m"
+    
+    ## Run Code
+    head -n 3 $infile  ;
+    echo "... Running" ;
+    R CMD BATCH --no-save --quiet --no-restore  $infile $outfile
+    #Rscript --no-save --no-restore --no-site-file --verbose $infile >> $outfile ;
+
+    ## Print Output
+    tail -n 5 $outfile ;
+    echo
+    
+done
+echo
+
+
+end_time=$(date +%s) #+%M:%S
+echo "RunTime: $[$end_time - $start_time] Seconds"
+

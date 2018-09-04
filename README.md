@@ -14,7 +14,7 @@ https://github.com/Jadamso/ProjectTemplate.git
 make `FolderMaker` program to be in path
 
 ```bash
-cp ./FolderMaker $HOME/Programs/FolderMaker
+cp ./FolderMaker $HOME/Programs
 # (Alternative symbolic link) ln -sf ./FolderMaker $HOME/Programs/FolderMaker
 ```
 
@@ -25,6 +25,13 @@ cp -r ./GitTemplate $HOME/Desktop/Common
 ```
 
 
+
+
+```bash
+cp ./Code ./Code2 ./CodeSub ./CodeSub2 $HOME/Programs
+cp -r ./ALLBLOCKS.sh ./QSUBfunctions.sh $HOME/Desktop/Common
+
+```
 
 ## How to Use
 
@@ -46,5 +53,6 @@ Alternatively add the following alias to `~/.bashrc` and call `mrp`
 alias mrp='R CMD BATCH --no-save Code/Make.R Code/Make.Rout'
 ```
 
+## How to Use
 
 

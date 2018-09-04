@@ -1,0 +1,84 @@
+#! /bin/bash
+####################################################################
+# Jordan Adamson 
+####################################################################
+shopt -s expand_aliases
+source $HOME"/.bashrc"
+
+#-------------------------------------------------------------------
+###################
+# Which Paper
+###################
+
+N1=$1
+outdir="$HOME/Desktop/$N1/Code/R_Output/"
+indir="$HOME/Desktop/$N1/Code/R_Code/"
+
+#if [[ "$1" == "Paper1" ]] || [[ "$1" == "Paper2" ]] ; then
+#fi
+
+
+cd $outdir
+echo "$outdir"
+
+#-------------------------------------------------------------------
+###################
+# Software Information
+###################
+
+if [[ "$2" == "Info" ]] || [[ "$2" == "Setup" ]]; then
+    infile=$HOME/Desktop/Common/R_Code/RBLOCK_INFO.R;
+    outfile=$outdir"RBLOCK_INFO.Rout";
+    R CMD BATCH --no-save --quiet --no-restore  $infile $outfile
+    #echo "infile=$infile" >>  $outfile
+    exit
+fi
+
+#-------------------------------------------------------------------
+###################
+# Running Codes
+###################
+
+start_time=$(date +%s) #+%M:%S
+
+paper="$1";
+shift ;
+block="$@";
+
+
+# View Output
+if [[ $@ =~ "-v" ]] || [[ $@ =~ "--view" ]]; then
+    rfile=$(find $outdir*".Rout")
+    declare -a vnames=$(echo $rfile)
+    for name in "${vnames[@]}"; do
+        ## Files
+        infile=$indir"RBLOCK_"$name".R";
+        outfile=$outdir"RBLOCK_"$name".Rout";
+        ## Commands
+        head -n 3 $infile;
+        tail -n 5 $outfile;
+        echo
+    done
+    exit
+else
+# Run Code 
+    declare -a bnames=( "$@" )  #("003");
+    for name in "${bnames[@]}"; do
+        ## Files
+        infile=$indir"RBLOCK_"$name".R";
+        outfile=$outdir"RBLOCK_"$name".Rout";
+        ## Commands
+        head -n 3 $infile  ;
+        echo "... Running" ;
+        R CMD BATCH --no-save --quiet --no-restore  $infile $outfile
+        #Rscript --no-save --no-restore --no-site-file --verbose $infile >> $outfile ;
+        tail -n 5 $outfile ;
+        echo
+    done
+    echo
+fi    
+
+
+end_time=$(date +%s) #+%M:%S
+echo $[$end_time - $start_time]
+
