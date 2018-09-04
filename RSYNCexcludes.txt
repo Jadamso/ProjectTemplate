@@ -1,0 +1,6 @@
+*.Rout
+Old/
+R_Code/Old/
+OLD/
+R_Code/OLD/
+.git/

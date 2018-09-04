@@ -18,8 +18,12 @@ cp ./FolderMaker $HOME/Programs
 # (Alternative symbolic link) ln -sf ./FolderMaker $HOME/Programs/FolderMaker
 ```
 
-make GitTemplate to be in copyable Directory
+make Latex templates  to be in copyable Directory
+```bash
+cp -r ./Latex $HOME/Desktop/Common
+```
 
+make GitTemplate to be in copyable Directory
 ```bash
 cp -r ./GitTemplate $HOME/Desktop/Common
 ```
@@ -28,12 +32,15 @@ cp -r ./GitTemplate $HOME/Desktop/Common
 code templates for submitting batch jobs on a cluster,
 ```bash
 ## added to project code directories
-cp ./ALLBLOCKS.sh  $HOME/Desktop/Common
-## added to path 
+cp ./ALLBLOCKS.sh RBLOCK_INFO.R  $HOME/Desktop/Common
+## added to path for related programs
 cp ./Code ./Code2 ./CodeSub ./CodeSub2 $HOME/Programs
 cp ./QSUBfunctions.sh $HOME/Desktop/Common
-
+cp RSYNCexcludes.txt $HOME/Desktop/Common
 ```
+
+
+
 
 ## How to Use
 
