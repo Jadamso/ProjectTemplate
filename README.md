@@ -44,7 +44,7 @@ cp RSYNCexcludes.txt $HOME/Desktop/Common
 
 Either copy the folders or run the program
 
-i.e. `FolderMaker -p NewProject' creates NewProject folder
+i.e. `FolderMaker -p NewProject` creates NewProject folder
 
 
 #### For standardized research project directory
