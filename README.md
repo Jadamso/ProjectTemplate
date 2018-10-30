@@ -4,10 +4,17 @@ Templates and Functions for Standardized Research Projects
 
 ## Initial Instructions
 
-To clone this repo to the current directory
+
+Clone this repo a local directory
 ```bash
 git clone https://github.com/Jadamso/ProjectTemplate.git
+
+## Or Manual Download
+#wget https://github.com/Jadamso/ProjectTemplate/archive/master.zip
+#unzip master.zip
 ```
+
+
 
 make `FolderMaker` program to be in path
 
