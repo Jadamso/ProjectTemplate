@@ -42,6 +42,11 @@
 
 \setbeamertemplate{footline}[page number]
 \setbeamertemplate{navigation symbols}{}
+\addtobeamertemplate{navigation symbols}{}{%
+    \usebeamerfont{footline}%
+    \usebeamercolor[fg]{footline}%
+    \insertframenumber/\inserttotalframenumber
+}
 
 %\useoutertheme{default}
 \useoutertheme[
