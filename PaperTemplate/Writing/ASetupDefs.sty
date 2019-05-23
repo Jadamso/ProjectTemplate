@@ -138,7 +138,7 @@
 
 \RequirePackage[
     backend=biber,
-    firstinits=false,
+    firstinits=true,
     uniquename=false,
     %uniquelist=fal‌​se,
     hyperref=true,
@@ -151,6 +151,8 @@
     ] {biblatex}%%{biblatex-chicago}
 
 
+\AtEveryBibitem{\clearfield{month}}
+\AtEveryCitekey{\clearfield{month}}
 %\AtEveryBibitem{%
 %    urldate=false
 %}
